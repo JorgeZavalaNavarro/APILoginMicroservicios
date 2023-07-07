@@ -1,0 +1,28 @@
+server:
+  port: 8000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:7000/eureka
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: admin.usuario-config
+          uri: lb://admin.usuario-config
+          predicates: 
+            - Path=/adminUsuario/**
+        - id: config.permisos-config
+          uri: lb://config.permisos-config
+          predicates: 
+            - Path=/configPermisos/**
+        - id: login-config
+          uri: lb://login-config
+          predicates: 
+            - Path=/login/**
+      
